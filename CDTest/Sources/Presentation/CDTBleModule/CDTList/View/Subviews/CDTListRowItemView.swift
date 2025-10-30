@@ -7,16 +7,20 @@
 
 import SwiftUI
 
+typealias Callback = () -> ()
+
 struct CDTListRowItemView: View {
     
     private enum Constants {
         static let bluetoothIconImage = "bluetoothIconImage"
     }
     
-    @Binding private var model: BLEPeripheralModel
+    @Binding private var model: BLEPeripheralDisplayModel
+    private var didConnect: Callback?
     
-    init(model: Binding<BLEPeripheralModel>) {
+    init(model: Binding<BLEPeripheralDisplayModel>, callBack: Callback?) {
         self._model = model
+        self.didConnect = callBack
     }
     
     var body: some View {
@@ -41,13 +45,23 @@ struct CDTListRowItemView: View {
                 
                 Spacer()
                 if model.isAvailableConnection {
-                    Button {
-                        print("Image button tapped!")
-                    } label: {
-                        Text("Connect")
-                            .font(.caption)
+                    switch model.connectionState {
+                    case .connectedState, .disconnectedState:
+                        Button {
+                            didConnect?()
+                        } label: {
+                            Text(model.connectionState == .connectedState ? "Disconnect" : "Connect")
+                                .font(.caption)
+                        }
+                        .frame(height: 44)
+                    case .processingState:
+                        ProgressView("")
+                            .progressViewStyle(CircularProgressViewStyle())
+                            .frame(height: 24)
+                        
+                    case .unknownState:
+                        EmptyView()
                     }
-                    .frame(height: 44)
                 }
             }
             

@@ -10,14 +10,14 @@ import SwiftUI
 struct CDTListView: View {
     
     private enum Constants {
-        static let scanningAllDevicesDescription = "All devices scanning enabled"
-        static let scanningUniqueDevicesDescription = "Unique devices scanning enabled"
+        static let scanningAllDevicesDescription = "All devices scanning"
+        static let scanningUniqueDevicesDescription = "Unique devices scanning"
     }
     
     // MARK: - Properties
     
     @StateObject private var viewModel: CDTListViewModel = .init()
-    @State private var scanAllDevices: Bool = true
+    @State private var scanAllDevices: Bool = false
     
     // MARK: - Bindin UI
     
@@ -25,7 +25,7 @@ struct CDTListView: View {
         NavigationView {
             VStack {
                 Toggle(isOn: $scanAllDevices) {
-                    Text(scanAllDevices ? Constants.scanningAllDevicesDescription : Constants.scanningUniqueDevicesDescription)
+                    Text(!scanAllDevices ? Constants.scanningAllDevicesDescription : Constants.scanningUniqueDevicesDescription)
                         .font(.title3)
                 }
                 .padding(.horizontal, 16)
@@ -36,7 +36,9 @@ struct CDTListView: View {
                 ScrollView {
                     VStack(alignment: .leading) {
                         ForEach($viewModel.peripherals) { peripheral in
-                            CDTListRowItemView(model: peripheral)
+                            CDTListRowItemView(model: peripheral, callBack: {
+                                viewModel.connect(to: peripheral.wrappedValue)
+                            })
                         }
                     }
                 }

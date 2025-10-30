@@ -6,18 +6,42 @@
 //
 
 import Foundation
+import CoreBluetooth
 
-public struct BLEPeripheralModel: Identifiable {
+public struct BLEPeripheralDisplayModel: Identifiable {
     
     // MARK: - Properties
-    
     public var id: String {
         return uuid.uuidString
     }
+    
+    var peripheral: CBPeripheral
     var name: String
     var rssi: NSNumber
-    var uuid: UUID
     var isAvailableConnection: Bool
     
+    var uuid: UUID {
+        return peripheral.identifier
+    }
     
+    public var connectionState: BLEPeripheralState {
+        switch peripheral.state {
+        case .connected:
+            return .connectedState
+        case .disconnected:
+            return .disconnectedState
+        case .connecting, .disconnecting:
+            return .processingState
+        @unknown default:
+            return .unknownState
+        }
+    }
 }
+
+public enum BLEPeripheralState {
+    case connectedState
+    case disconnectedState
+    case processingState
+    case unknownState
+}
+

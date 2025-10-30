@@ -13,7 +13,7 @@ final public class CDTListViewModel: ObservableObject {
     // MARK: - Properties
     private var bluetoothService: BluetoothService
     private var cancellables = Set<AnyCancellable>()
-    @Published public var peripherals: [BLEPeripheralModel] = []
+    @Published public var peripherals: [BLEPeripheralDisplayModel] = []
     
     // MARK: - Initializers
     
@@ -35,5 +35,9 @@ final public class CDTListViewModel: ObservableObject {
     
     func changeScanningType() {
         self.bluetoothService.startScanningOnlyUnique()
+    }
+    
+    func connect(to displayModel: BLEPeripheralDisplayModel) {
+        bluetoothService.changeRephiralConnectionStatus(peripheral: displayModel.peripheral)
     }
 }
