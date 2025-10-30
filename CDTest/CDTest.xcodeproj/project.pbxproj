@@ -15,6 +15,7 @@
 		BC5C54612EB38DC7000D5F5D /* BluetoothService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5C54602EB38DC7000D5F5D /* BluetoothService.swift */; };
 		BC5C54662EB3926F000D5F5D /* BluetoothServiceModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5C54652EB3926F000D5F5D /* BluetoothServiceModels.swift */; };
 		BC5C54682EB3937D000D5F5D /* CDTListRowItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5C54672EB3937D000D5F5D /* CDTListRowItemView.swift */; };
+		BC5C546B2EB405F8000D5F5D /* CDTDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5C546A2EB405F8000D5F5D /* CDTDetailView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		BC5C54622EB38E48000D5F5D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BC5C54652EB3926F000D5F5D /* BluetoothServiceModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothServiceModels.swift; sourceTree = "<group>"; };
 		BC5C54672EB3937D000D5F5D /* CDTListRowItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CDTListRowItemView.swift; sourceTree = "<group>"; };
+		BC5C546A2EB405F8000D5F5D /* CDTDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CDTDetailView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -182,6 +184,7 @@
 		BC5C545B2EB38D57000D5F5D /* View */ = {
 			isa = PBXGroup;
 			children = (
+				BC5C546A2EB405F8000D5F5D /* CDTDetailView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -315,6 +318,7 @@
 				BC5C54402EB3899E000D5F5D /* CDTest.xcdatamodeld in Sources */,
 				BC5C54592EB38D48000D5F5D /* CDTListModels.swift in Sources */,
 				BC5C54682EB3937D000D5F5D /* CDTListRowItemView.swift in Sources */,
+				BC5C546B2EB405F8000D5F5D /* CDTDetailView.swift in Sources */,
 				BC5C54532EB38C06000D5F5D /* CDTListView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

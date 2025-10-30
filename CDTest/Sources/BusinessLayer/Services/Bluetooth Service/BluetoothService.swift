@@ -24,6 +24,7 @@ public class BluetoothService: NSObject, ObservableObject {
     private var options = [CBConnectPeripheralOptionNotifyOnDisconnectionKey : NSNumber(booleanLiteral: true)]
     private var scanAllDevices = true {
         didSet {
+            disconnectAllPeripherals()
             peripherals.removeAll()
             startScanning()
         }
@@ -135,5 +136,11 @@ extension BluetoothService {
     
     private func obtainPeriphiralIndex(_ peripheral: CBPeripheral) -> Int? {
         peripherals.firstIndex(where: {$0.uuid == peripheral.identifier})
+    }
+    
+    func disconnectAllPeripherals() {
+        for peripheral in peripherals {
+            centralManager.cancelPeripheralConnection(peripheral.peripheral)
+        }
     }
 }

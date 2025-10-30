@@ -22,8 +22,8 @@ struct CDTListView: View {
     // MARK: - Bindin UI
     
     var body: some View {
-        NavigationView {
-            VStack {
+        NavigationStack {
+            VStack(alignment: .leading) {
                 Toggle(isOn: $scanAllDevices) {
                     Text(!scanAllDevices ? Constants.scanningAllDevicesDescription : Constants.scanningUniqueDevicesDescription)
                         .font(.title3)
@@ -36,14 +36,16 @@ struct CDTListView: View {
                 ScrollView {
                     VStack(alignment: .leading) {
                         ForEach($viewModel.peripherals) { peripheral in
-                            CDTListRowItemView(model: peripheral, callBack: {
-                                viewModel.connect(to: peripheral.wrappedValue)
-                            })
+                            NavigationLink(destination: CDTDetailView(model: peripheral)) {
+                                CDTListRowItemView(model: peripheral, callBack: {
+                                    viewModel.connect(to: peripheral.wrappedValue)
+                                })
+                                .foregroundStyle(.black)
+                            }
                         }
                     }
                 }
                 .scrollIndicators(.hidden)
-                
             }
             .navigationTitle("Device List")
         }

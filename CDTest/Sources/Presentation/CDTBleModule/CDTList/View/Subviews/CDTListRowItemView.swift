@@ -25,19 +25,24 @@ struct CDTListRowItemView: View {
     
     var body: some View {
         VStack(alignment: .leading) {
-            HStack(spacing: 10) {
+            HStack(spacing: 5) {
                 Image(Constants.bluetoothIconImage)
                     .resizable()
                     .renderingMode(.template)
-                    .foregroundStyle(Color.gray.opacity(0.5))
+                    .foregroundStyle(model.connectionState == .connectedState ? Color.blue : Color.gray.opacity(0.5))
                     .frame(width: 50, height: 50)
                 
-                VStack(alignment: .leading,spacing: 5) {
-                    Text("uuid: \n" + model.uuid.uuidString)
+                VStack(alignment: .leading, spacing: 5) {
+                    Text("uuid:")
                         .font(.caption)
+                    Text(model.uuid.uuidString)
+                        .font(.caption2)
+                        .multilineTextAlignment(.leading)
                     if !model.name.isEmpty {
-                        Text("Name: " + model.name)
-                            .font(.headline)
+                        Text("Name:")
+                            .font(.subheadline)
+                        Text(model.name)
+                            .font(.subheadline)
                     }
                     Text("rssi: " + model.rssi.stringValue)
                         .font(.caption)
