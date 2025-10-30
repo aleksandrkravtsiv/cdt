@@ -6,3 +6,34 @@
 //
 
 import Foundation
+import Combine
+
+final public class CDTListViewModel: ObservableObject {
+    
+    // MARK: - Properties
+    private var bluetoothService: BluetoothService
+    private var cancellables = Set<AnyCancellable>()
+    @Published public var peripherals: [BLEPeripheralModel] = []
+    
+    // MARK: - Initializers
+    
+    init() {
+        self.bluetoothService = BluetoothService()
+        startScanning()
+    }
+    
+    // MARK: - Public methods
+    
+    func startScanning() {
+        bluetoothService.$peripherals
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] updatedPeripherals in
+                self?.peripherals = updatedPeripherals
+            }
+            .store(in: &cancellables)
+    }
+    
+    func changeScanningType() {
+        self.bluetoothService.startScanningOnlyUnique()
+    }
+}

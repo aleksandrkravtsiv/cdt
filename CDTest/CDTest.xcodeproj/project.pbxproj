@@ -11,6 +11,10 @@
 		BC5C54402EB3899E000D5F5D /* CDTest.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = BC5C543E2EB3899E000D5F5D /* CDTest.xcdatamodeld */; };
 		BC5C54532EB38C06000D5F5D /* CDTListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5C54522EB38C06000D5F5D /* CDTListView.swift */; };
 		BC5C54572EB38C1C000D5F5D /* CDTListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5C54562EB38C1C000D5F5D /* CDTListViewModel.swift */; };
+		BC5C54592EB38D48000D5F5D /* CDTListModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5C54582EB38D48000D5F5D /* CDTListModels.swift */; };
+		BC5C54612EB38DC7000D5F5D /* BluetoothService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5C54602EB38DC7000D5F5D /* BluetoothService.swift */; };
+		BC5C54662EB3926F000D5F5D /* BluetoothServiceModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5C54652EB3926F000D5F5D /* BluetoothServiceModels.swift */; };
+		BC5C54682EB3937D000D5F5D /* CDTListRowItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5C54672EB3937D000D5F5D /* CDTListRowItemView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +23,11 @@
 		BC5C543F2EB3899E000D5F5D /* CDTest.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CDTest.xcdatamodel; sourceTree = "<group>"; };
 		BC5C54522EB38C06000D5F5D /* CDTListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CDTListView.swift; sourceTree = "<group>"; };
 		BC5C54562EB38C1C000D5F5D /* CDTListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CDTListViewModel.swift; sourceTree = "<group>"; };
+		BC5C54582EB38D48000D5F5D /* CDTListModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CDTListModels.swift; sourceTree = "<group>"; };
+		BC5C54602EB38DC7000D5F5D /* BluetoothService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothService.swift; sourceTree = "<group>"; };
+		BC5C54622EB38E48000D5F5D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BC5C54652EB3926F000D5F5D /* BluetoothServiceModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothServiceModels.swift; sourceTree = "<group>"; };
+		BC5C54672EB3937D000D5F5D /* CDTListRowItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CDTListRowItemView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -61,6 +70,7 @@
 		BC5C54462EB38B72000D5F5D /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				BC5C545D2EB38D8E000D5F5D /* BusinessLayer */,
 				BC5C544A2EB38BA3000D5F5D /* Presentation */,
 			);
 			path = Sources;
@@ -69,6 +79,7 @@
 		BC5C54472EB38B7A000D5F5D /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				BC5C54692EB394BD000D5F5D /* PropertyList */,
 				BC5C544B2EB38BAD000D5F5D /* CoreData */,
 				BC5C54482EB38B83000D5F5D /* Assets */,
 			);
@@ -86,6 +97,7 @@
 		BC5C54492EB38B90000D5F5D /* CDTBleModule */ = {
 			isa = PBXGroup;
 			children = (
+				BC5C545A2EB38D51000D5F5D /* CDTDetail */,
 				BC5C544D2EB38BC1000D5F5D /* CDTList */,
 			);
 			path = CDTBleModule;
@@ -137,6 +149,7 @@
 		BC5C544F2EB38BE6000D5F5D /* Subviews */ = {
 			isa = PBXGroup;
 			children = (
+				BC5C54672EB3937D000D5F5D /* CDTListRowItemView.swift */,
 			);
 			path = Subviews;
 			sourceTree = "<group>";
@@ -152,8 +165,73 @@
 		BC5C54512EB38BF9000D5F5D /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				BC5C54582EB38D48000D5F5D /* CDTListModels.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		BC5C545A2EB38D51000D5F5D /* CDTDetail */ = {
+			isa = PBXGroup;
+			children = (
+				BC5C545C2EB38D61000D5F5D /* ViewModel */,
+				BC5C545B2EB38D57000D5F5D /* View */,
+			);
+			path = CDTDetail;
+			sourceTree = "<group>";
+		};
+		BC5C545B2EB38D57000D5F5D /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		BC5C545C2EB38D61000D5F5D /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		BC5C545D2EB38D8E000D5F5D /* BusinessLayer */ = {
+			isa = PBXGroup;
+			children = (
+				BC5C545E2EB38D9C000D5F5D /* Services */,
+			);
+			path = BusinessLayer;
+			sourceTree = "<group>";
+		};
+		BC5C545E2EB38D9C000D5F5D /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				BC5C545F2EB38DA7000D5F5D /* Bluetooth Service */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		BC5C545F2EB38DA7000D5F5D /* Bluetooth Service */ = {
+			isa = PBXGroup;
+			children = (
+				BC5C54642EB39267000D5F5D /* Models */,
+				BC5C54602EB38DC7000D5F5D /* BluetoothService.swift */,
+			);
+			path = "Bluetooth Service";
+			sourceTree = "<group>";
+		};
+		BC5C54642EB39267000D5F5D /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				BC5C54652EB3926F000D5F5D /* BluetoothServiceModels.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		BC5C54692EB394BD000D5F5D /* PropertyList */ = {
+			isa = PBXGroup;
+			children = (
+				BC5C54622EB38E48000D5F5D /* Info.plist */,
+			);
+			path = PropertyList;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -232,7 +310,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				BC5C54572EB38C1C000D5F5D /* CDTListViewModel.swift in Sources */,
+				BC5C54662EB3926F000D5F5D /* BluetoothServiceModels.swift in Sources */,
+				BC5C54612EB38DC7000D5F5D /* BluetoothService.swift in Sources */,
 				BC5C54402EB3899E000D5F5D /* CDTest.xcdatamodeld in Sources */,
+				BC5C54592EB38D48000D5F5D /* CDTListModels.swift in Sources */,
+				BC5C54682EB3937D000D5F5D /* CDTListRowItemView.swift in Sources */,
 				BC5C54532EB38C06000D5F5D /* CDTListView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -371,6 +453,7 @@
 				DEVELOPMENT_TEAM = 24D4W5V9X8;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Resources/PropertyList/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = CDTest;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -378,7 +461,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -410,6 +493,7 @@
 				DEVELOPMENT_TEAM = 24D4W5V9X8;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Resources/PropertyList/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = CDTest;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -417,7 +501,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
