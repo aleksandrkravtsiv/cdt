@@ -71,7 +71,6 @@ extension BluetoothService: CBCentralManagerDelegate {
         
         peripheral.delegate = self
         peripheral.discoverServices(nil)
-        peripheral.readRSSI()
         
         if let selectedPeripheralIndex = obtainPeriphiralIndex(peripheral) {
             peripherals[selectedPeripheralIndex].peripheral = peripheral
@@ -114,10 +113,31 @@ extension BluetoothService: CBPeripheralDelegate {
         }
     }
     
+    public func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: (any Error)?) {
+        guard let services = peripheral.services else { return }
+        for service in services {
+            peripheral.discoverCharacteristics(nil, for: service)
+        }
+    }
+    
+    public func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: (any Error)?) {
+        guard let characteristics = service.characteristics else { return }
+        
+        for characteristic in characteristics {
+            peripheral.readValue(for: characteristic)
+        }
+    }
+    
     public func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: (any Error)?) {
+        guard error == nil else { return }
         guard let inputData = characteristic.value else { return }
         
-        print(inputData)
+        if let value = String(data: inputData, encoding: .utf8) {
+            if let index = peripherals.firstIndex(where: { $0.uuid == peripheral.identifier }) {
+                peripherals[index].characteristicList.append(BLEPeripheralCaharcteristicDisplayModel(id: characteristic.uuid.uuidString, characterisiticValue: value))
+            }
+        }
+        
     }
 }
 
@@ -158,6 +178,10 @@ extension BluetoothService {
     }
     
     private func updateConnectedPeripheralRSSI(peripheral: CBPeripheral) {
+        guard peripheral.state == .connected else {
+            rssiTimer?.invalidate()
+            return
+        }
         rssiTimer?.invalidate()
         rssiTimer = Timer.scheduledTimer(withTimeInterval: 3, repeats: true, block: { (_) in
             peripheral.readRSSI()

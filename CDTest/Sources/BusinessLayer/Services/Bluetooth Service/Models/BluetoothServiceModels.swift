@@ -19,6 +19,7 @@ public struct BLEPeripheralDisplayModel: Identifiable {
     var name: String
     var rssi: NSNumber
     var isAvailableConnection: Bool
+    var characteristicList = [BLEPeripheralCaharcteristicDisplayModel]()
     
     var uuid: UUID {
         return peripheral.identifier
@@ -43,5 +44,10 @@ public enum BLEPeripheralState {
     case disconnectedState
     case processingState
     case unknownState
+}
+
+struct BLEPeripheralCaharcteristicDisplayModel: Identifiable {
+    let id: String
+    let characterisiticValue: String
 }
 

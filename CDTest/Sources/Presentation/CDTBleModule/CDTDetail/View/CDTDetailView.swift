@@ -30,8 +30,22 @@ struct CDTDetailView: View {
                 Text("Conection: " + connectionStateValue)
                     .font(.caption)
                     .foregroundStyle(model.connectionState == .connectedState ? Color.green : Color.red)
+                
+                VStack(alignment: .leading) {
+                    Text("Characteristic values")
+                        .font(.title3)
+                    ForEach(model.characteristicList) { characteristic in
+                        VStack(alignment: .leading) {
+                            Text(characteristic.id)
+                                .font(.caption2)
+                                .multilineTextAlignment(.leading)
+                            Text(characteristic.characterisiticValue)
+                                .font(.caption2)
+                                .multilineTextAlignment(.leading)
+                        }
+                    }
+                }
             }
-            .padding(.horizontal, 16)
         }
     }
 }
