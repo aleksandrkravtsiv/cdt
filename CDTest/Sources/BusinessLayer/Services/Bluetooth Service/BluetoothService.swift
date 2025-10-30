@@ -22,6 +22,7 @@ public class BluetoothService: NSObject, ObservableObject {
     
     private var centralManager: CBCentralManager
     private var options = [CBConnectPeripheralOptionNotifyOnDisconnectionKey : NSNumber(booleanLiteral: true)]
+    private var rssiTimer: Timer?
     private var scanAllDevices = true {
         didSet {
             disconnectAllPeripherals()
@@ -47,7 +48,6 @@ public class BluetoothService: NSObject, ObservableObject {
     public func changeRephiralConnectionStatus(peripheral: CBPeripheral) {
         guard let selectedPeripheralIndex = obtainPeriphiralIndex(peripheral) else { return }
         let peripheralForConnection = peripherals[selectedPeripheralIndex].peripheral
-        peripheralForConnection.delegate = self
         
         if peripheralForConnection.state == .connected {
             centralManager.cancelPeripheralConnection(peripheralForConnection)
@@ -68,9 +68,16 @@ extension BluetoothService: CBCentralManagerDelegate {
     }
     
     public func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
+        
+        peripheral.delegate = self
+        peripheral.discoverServices(nil)
+        peripheral.readRSSI()
+        
         if let selectedPeripheralIndex = obtainPeriphiralIndex(peripheral) {
             peripherals[selectedPeripheralIndex].peripheral = peripheral
         }
+        
+        updateConnectedPeripheralRSSI(peripheral: peripheral)
     }
     
     public func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: (any Error)?) {
@@ -94,6 +101,12 @@ extension BluetoothService: CBCentralManagerDelegate {
 // MARK: - CBPeripheralDelegate Methods
 
 extension BluetoothService: CBPeripheralDelegate {
+    
+    public func peripheral(_ peripheral: CBPeripheral, didReadRSSI RSSI: NSNumber, error: (any Error)?) {
+        if let index = peripherals.firstIndex(where: { $0.uuid == peripheral.identifier }) {
+            peripherals[index].rssi = RSSI
+        }
+    }
     
     public func peripheralDidUpdateName(_ peripheral: CBPeripheral) {
         if let selectedPeripheralIndex = obtainPeriphiralIndex(peripheral), let name = peripheral.name {
@@ -142,5 +155,12 @@ extension BluetoothService {
         for peripheral in peripherals {
             centralManager.cancelPeripheralConnection(peripheral.peripheral)
         }
+    }
+    
+    private func updateConnectedPeripheralRSSI(peripheral: CBPeripheral) {
+        rssiTimer?.invalidate()
+        rssiTimer = Timer.scheduledTimer(withTimeInterval: 3, repeats: true, block: { (_) in
+            peripheral.readRSSI()
+        })
     }
 }
