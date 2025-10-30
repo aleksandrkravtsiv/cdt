@@ -9,28 +9,41 @@ import SwiftUI
 
 struct CDTListView: View {
     
+    private enum Constants {
+        static let scanningAllDevicesDescription = "All devices scanning enabled"
+        static let scanningUniqueDevicesDescription = "Unique devices scanning enabled"
+    }
+    
     // MARK: - Properties
     
     @StateObject private var viewModel: CDTListViewModel = .init()
+    @State private var scanAllDevices: Bool = true
     
     // MARK: - Bindin UI
+    
     var body: some View {
         NavigationView {
-            ScrollView {
-                VStack(alignment: .leading) {
-                    ForEach($viewModel.peripherals) { peripheral in
-                        CDTListRowItemView(model: peripheral)
+            VStack {
+                Toggle(isOn: $scanAllDevices) {
+                    Text(scanAllDevices ? Constants.scanningAllDevicesDescription : Constants.scanningUniqueDevicesDescription)
+                        .font(.title3)
+                }
+                .padding(.horizontal, 16)
+                .onChange(of: scanAllDevices) { _ in
+                    viewModel.changeScanningType()
+                }
+                
+                ScrollView {
+                    VStack(alignment: .leading) {
+                        ForEach($viewModel.peripherals) { peripheral in
+                            CDTListRowItemView(model: peripheral)
+                        }
                     }
                 }
+                .scrollIndicators(.hidden)
+                
             }
-            .scrollIndicators(.hidden)
+            .navigationTitle("Device List")
         }
-    }
-}
-
-extension CDTListView {
-    
-    private func configureUI() {
-        
     }
 }

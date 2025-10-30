@@ -17,7 +17,11 @@ public class BluetoothService: NSObject, ObservableObject {
     
     private var centralManager: CBCentralManager
     private var options = [CBConnectPeripheralOptionNotifyOnDisconnectionKey : NSNumber(booleanLiteral: true)]
-    private var scanAllDevices = true
+    private var scanAllDevices = true {
+        didSet {
+            peripherals.removeAll()
+        }
+    }
 
     
     // MARK: - Initializers
@@ -31,9 +35,7 @@ public class BluetoothService: NSObject, ObservableObject {
     
     public func startScanningOnlyUnique() {
         scanAllDevices.toggle()
-        peripherals.removeAll()
     }
-    
 }
 
 // MARK: - CBCentralManagerDelegate Methods
@@ -41,11 +43,7 @@ public class BluetoothService: NSObject, ObservableObject {
 extension BluetoothService: CBCentralManagerDelegate {
     
     public func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
-        if scanAllDevices {
-            updateDeviceList(peripheral: peripheral, rssi: RSSI)
-        } else {
-            
-        }
+        updateDeviceList(peripheral: peripheral, advertisementData: advertisementData, rssi: RSSI)
     }
     
     public func centralManagerDidUpdateState(_ central: CBCentralManager) {
@@ -74,16 +72,22 @@ extension BluetoothService {
         centralManager.scanForPeripherals(withServices: nil, options: options)
     }
     
-    private func updateDeviceList(peripheral: CBPeripheral, rssi: NSNumber) {
+    private func updateDeviceList(peripheral: CBPeripheral, advertisementData: [String : Any], rssi: NSNumber) {
         
         let peripheralUUID = peripheral.identifier
+        let peripheralName = peripheral.name ?? ""
+        let isAvailableConnection = isAvailableConnection(advertisementData: advertisementData)
         
         if let index = peripherals.firstIndex(where: { $0.uuid == peripheralUUID }) {
             peripherals[index].rssi = rssi
         } else {
-            let newPeripheral = BLEPeripheralModel(rssi: rssi, uuid: peripheralUUID)
+            let newPeripheral = BLEPeripheralModel(name: peripheralName, rssi: rssi, uuid: peripheralUUID, isAvailableConnection: isAvailableConnection)
             peripherals.append(newPeripheral)
-            debugPrint("Added new peripheral with uuid: \(peripheralUUID)")
         }
+    }
+    
+    private func isAvailableConnection(advertisementData: [String : Any]) -> Bool {
+        guard let kCBAdvDataIsConnectable = advertisementData["kCBAdvDataIsConnectable"] as? Int, kCBAdvDataIsConnectable > 0 else { return false }
+        return true
     }
 }

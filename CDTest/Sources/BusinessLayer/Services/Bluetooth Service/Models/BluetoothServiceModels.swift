@@ -14,8 +14,10 @@ public struct BLEPeripheralModel: Identifiable {
     public var id: String {
         return uuid.uuidString
     }
+    var name: String
     var rssi: NSNumber
     var uuid: UUID
+    var isAvailableConnection: Bool
     
     
 }

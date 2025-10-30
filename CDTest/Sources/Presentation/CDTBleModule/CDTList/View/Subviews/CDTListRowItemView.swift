@@ -31,10 +31,28 @@ struct CDTListRowItemView: View {
                 VStack(alignment: .leading,spacing: 5) {
                     Text("uuid: \n" + model.uuid.uuidString)
                         .font(.caption)
+                    if !model.name.isEmpty {
+                        Text("Name: " + model.name)
+                            .font(.headline)
+                    }
                     Text("rssi: " + model.rssi.stringValue)
                         .font(.caption)
                 }
+                
+                Spacer()
+                if model.isAvailableConnection {
+                    Button {
+                        print("Image button tapped!")
+                    } label: {
+                        Text("Connect")
+                            .font(.caption)
+                    }
+                    .frame(height: 44)
+                }
             }
+            
+            Divider().frame(height: 0.5)
+                .padding(.leading, 50)
         }
         .padding(.horizontal, 16)
     }
