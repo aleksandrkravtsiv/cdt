@@ -69,8 +69,3 @@ Developed by [Oleksandr Kravtsiv](https://github.com/oleksandrkravtsiv)
 Based on CitrusDev’s BLE configuration guide.
 
 ---
-
-## 🪪 License
-
-This project is distributed under the MIT License.  
-See [`LICENSE`](LICENSE) for details.
