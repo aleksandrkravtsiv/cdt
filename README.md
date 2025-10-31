@@ -65,7 +65,7 @@ CBUUID(string: "3333")
 
 ## 🧑‍💻 Author
 
-Developed by [Oleksandr Kravtsiv](https://github.com/oleksandrkravtsiv)  
+Developed by [Oleksandr Kravtsiv](https://github.com/aleksandrkravtsiv)  
 Based on CitrusDev’s BLE configuration guide.
 
 ---
