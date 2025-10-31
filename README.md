@@ -9,7 +9,7 @@ This project demonstrates how to use a **custom CBUUID** for BLE communication o
 Instead of using the default UUIDs, the project defines a custom BLE service identifier:
 
 ```swift
-CBUUID(string: Constants.serviceUUID)
+CBUUID(string: "3333")
 ```
 
 This approach allows developers to:
